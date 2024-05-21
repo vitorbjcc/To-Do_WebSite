@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do WebSite</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="https://cdn2.iconfinder.com/data/icons/entrepreneur-flat-high-risk-high-return/512/Task_management-64.png" type="image/png">
+    <style>
+        *
+        {
+            background-color: #535bb5;
+            color: #fff;
+            font-family: 'Roboto', Arial, Helvetica;
+            font-size: 12pt;
+        }
+
+        h1
+        {
+            font-family: 'Bebas Neue', Arial, Helvetica;
+            text-align: center;
+            color: #7b84ff;
+            font-size: 24pt;
+        }
+
+        h2
+        {
+            font-family: 'Bebas Neue', Arial, Helvetica;
+            text-align: center;
+            color: #7b84ff;
+            font-size: 18pt;
+        }
+
+        header
+        {
+            border: 3px solid #fff;
+            border-radius: 15px;
+        }
+
+        ::placeholder
+        {
+            color: #7b84ff;
+        }
+
+        #task_input
+        {
+            transition-duration: .5s;
+            border: 2px solid #7b84ff;
+            font-size: 12pt;
+            border-radius: 20px;
+            padding: 5px;
+        }
+
+        #task_input:focus
+        {
+            background-color: #7b84ff;
+            border: 2px solid #3c4284;
+            outline: none;
+        }
+
+        #task_input:focus::placeholder
+        {
+            color: #3c4284;
+        }
+
+        button
+        {
+            transition-duration: 0.5s;
+            border: 2px solid #fff;
+            background-color: #7b84ff;
+            border-radius: 15px;
+            padding: 15px;
+            cursor: pointer;
+            font-size: 12.5pt;
+        }
+
+        button:hover
+        {
+            transition-duration: .5s;
+            background-color: #535bb5;
+            color: #b2b2b2;
+        }
+
+        .c
+        {
+            cursor: pointer;
+            transform: scale(1.2);
+        }
+
+        ul
+        {
+            border: 2px solid #fff;
+            border-radius: 15px;
+        }
+    </style>
+    <script>
+        function load()
+        {
+            // Add a click event at button
+            var button = document.getElementById("btn_add");
+
+            return button.addEventListener("click", add_task);
+        }
+
+        function add_task()
+        {
+            // Get the input
+            var task_input = document.getElementById("task_input");
+
+            // If the text of input are "", return an alert
+            if (!task_input.value) return window.alert("You need to fill all input.");
+            // If the task input value are the same of some paragraph, return another alert
+            if (document.getElementById(task_input.value) !== null) return window.alert("You can`t add the same task.");
+
+            // Get list
+            var list = document.getElementById("list");
+
+            // Create element
+            var p = document.createElement("p");
+
+            // p innerHTML = task input value and a checkbox
+            p.innerHTML = `${task_input.value}: <input type="checkbox" id="c_${task_input.value}" class="c">`;
+
+            // p id = task input value
+            p.id = task_input.value;
+
+            // p text-decoration = none
+            p.style.textDecoration = "none";
+
+            // Append p into the list
+            list.appendChild(p);
+
+            // Add a change event at the checkbox
+            document.getElementById(`c_${task_input.value}`).onclick = function()
+            {
+                // Get the paragraph
+                var p = document.getElementById(String(this.id).replace("c_", ""));
+
+                // If user checked the checkbox
+                if (this.checked) return p.style.textDecoration = "line-through";
+
+                // If user unchecked the checkbox
+                return p.style.textDecoration = "none";
+            }
+        }
+    </script>
+</head>
+<body onload="load();"> <!-- When HTML Body loads, call the load function of my script -->
+    <header>
+        <h1>To-Do WebSite</h1>
+        <h2>Organize your tasks here.</h2>
+    </header>
+    <article>
+        <div>
+            <p>Add Task: <input type="text" name="task_input" id="task_input" placeholder="Add Your Task Here"></p>
+            <p><button id="btn_add">Add</button></p>
+        </div>
+        <div>
+            <ul id="list">
+                <p>Tasks: </p>
+            </ul>
+        </div>
+    </article>
+</body>
+</html>
+<!-- Made By Philip -->
